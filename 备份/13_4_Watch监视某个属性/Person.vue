@@ -1,6 +1,6 @@
 <template>
   <div class="person">
-    <h1>情况五: 监视上述的多个数据</h1>
+    <h1>情况四: 监视`ref`或`reactive`定义的【对象类型】数据中的某个属性</h1>
     <h2>姓名: {{ person.name }}</h2>
     <h2>年龄: {{ person.age }}</h2>
     <h2>汽车: {{ person.car.c1 }},{{ person.car.c2 }}</h2>
@@ -36,11 +36,27 @@ function changec2() {
 function changeCar() {
   person.car = { c1: "雅迪", c2: "艾玛" };
 }
-// 监视多个属性
-watch([() => person.name, () => person.car.c1], (nwValue, odValue) => {
-  console.log("name或c1变化了", nwValue, odValue);
-});
-
+// getter函数 ::能返回一个值的函数
+watch(
+  () => person.name,
+  (newVal, oldVal) => {
+    console.log("person.name变化了", newVal, oldVal);
+  }
+);
+watch(
+  () => person.age,
+  (newVal, oldVal) => {
+    console.log("person.age变化了", newVal, oldVal);
+  }
+);
+watch(
+  () => person.car,
+  (newVal, oldVal) => {
+    console.log("person.age变化了", newVal, oldVal);
+  }
+); //这种函数式的属性监视,更能监视到对象类型数据的变化
+// watch(person.car, (newVal, oldVal) => {
+//   console.log("person.age变化了", newVal, oldVal);
 // });
 </script>
 <style scoped>
