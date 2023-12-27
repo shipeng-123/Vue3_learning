@@ -1,38 +1,18 @@
 <template>
   <div class="person">
-    <ul>
-      <li v-for="Person in List" :key="Person.id">
-        {{ Person.name }}--{{ Person.age }}--{{ Person.id }}
-      </li>
-    </ul>
+    <h2>当前求和为: {{ sum }}</h2>
+    <button @click="add">点我sum+1</button>
+    <hr />
+    <img v-for="(dogimg, index) in dogList" :src="dogimg" :key="index" />
+    <br />
+    <button @click="getDog">再来一只小狗</button>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, defineProps, withDefaults } from "vue";
-import { type PersonInter, type PersonList } from "@/types";
-//接收a 但在Script里不能直接log打印
-// defineProps(["a", "b"]);
-//接收a 并用Props保存起来 才可以用于打印
-//只接收List
-// let x = defineProps(["List"]);
-//接收List+限制类型
-// defineProps<{ List: PersonList }>();
-// console.log(x);
-// 接收list + 限制类型 + 限制必要性 + 指定默认值
-// withDefaults(defineProps<{ List?: PersonList }>(), {
-//   List: () => [
-//     { id: "string1", name: "张3", age: 18 },
-//     { id: "string2", name: "张2", age: 18 },
-//     { id: "string3", name: "张1", age: 18 },
-//   ],
-// });
-withDefaults(defineProps<{ List?: PersonList }>(), {
-  List: () => [
-    { id: "string1", name: "张3", age: 18 },
-    { id: "string1", name: "张3", age: 18 },
-    { id: "string1", name: "张3", age: 18 },
-  ],
-});
+import useSum from "../hooks/useSum";
+import useDog from "../hooks/useDog";
+const { sum, add } = useSum();
+const { dogList, getDog } = useDog();
 </script>
 <style scoped>
 .person {
@@ -46,5 +26,9 @@ button {
 }
 input {
   margin-bottom: 10px;
+}
+img {
+  width: 100px;
+  margin-right: 10px;
 }
 </style>
