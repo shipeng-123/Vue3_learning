@@ -1,25 +1,37 @@
 <template>
   <div class="person">
-    <h2>中国</h2>
-    <h2 ref="title2">北京</h2>
-    <h2>山龟GU</h2>
-    <button @click="showLog">点我输出h2这个元素</button>
+    <ul>
+      <li v-for="Person in List" :key="Person.id">
+        {{ Person.name }}--{{ Person.age }}--{{ Person.id }}
+      </li>
+    </ul>
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-let title2 = ref();
-let a = ref(1);
-let b = ref(2);
-let c = ref(3);
-function showLog() {
-  console.log(title2);
-}
-//
-defineExpose({
-  a,
-  b,
-  c,
+import { ref, defineProps, withDefaults } from "vue";
+import { type PersonInter, type PersonList } from "@/types";
+//接收a 但在Script里不能直接log打印
+// defineProps(["a", "b"]);
+//接收a 并用Props保存起来 才可以用于打印
+//只接收List
+// let x = defineProps(["List"]);
+//接收List+限制类型
+// defineProps<{ List: PersonList }>();
+// console.log(x);
+// 接收list + 限制类型 + 限制必要性 + 指定默认值
+// withDefaults(defineProps<{ List?: PersonList }>(), {
+//   List: () => [
+//     { id: "string1", name: "张3", age: 18 },
+//     { id: "string2", name: "张2", age: 18 },
+//     { id: "string3", name: "张1", age: 18 },
+//   ],
+// });
+withDefaults(defineProps<{ List?: PersonList }>(), {
+  List: () => [
+    { id: "string1", name: "张3", age: 18 },
+    { id: "string1", name: "张3", age: 18 },
+    { id: "string1", name: "张3", age: 18 },
+  ],
 });
 </script>
 <style scoped>
