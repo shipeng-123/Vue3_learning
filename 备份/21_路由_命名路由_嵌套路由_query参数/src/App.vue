@@ -3,9 +3,8 @@
     <Header />
     <!-- 导航区 -->
     <div class="navigate">
-      <RouterLink replace to="/home" active-class="active">首页</RouterLink>
+      <RouterLink to="/home" active-class="active">首页</RouterLink>
       <RouterLink
-        replace
         :to="{
           name: 'xinwen',
         }"
@@ -13,7 +12,6 @@
         >新闻</RouterLink
       >
       <RouterLink
-        replace
         :to="{
           path: '/about',
         }"
